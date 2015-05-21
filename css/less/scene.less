@@ -1,0 +1,103 @@
+@import "reusables";
+
+
+html, body {
+    height: 100%;
+    background-color: darkgray;
+}
+
+
+main {
+    position: relative;
+    width: 36rem;
+    height: 70rem;
+
+    margin: 0 auto;
+    background-color: lightgray;
+
+    .cogs {
+        width: 0;
+        height: 100%;
+        margin: 0 auto;
+        position: relative;
+    }
+}
+
+
+.anim() {
+    50% {
+        .transform(rotate(180deg));
+    }
+    100% {
+        .transform(rotate(360deg));
+    }
+}
+@-webkit-keyframes anim { .anim(); }
+   @-moz-keyframes anim { .anim(); }
+        @keyframes anim { .anim(); }
+
+
+
+@cog-size: 6rem;
+@max-rotation: 1s;
+@flip-at: 4;
+@cog-base-offset: -3rem * (@flip-at / 2);
+@cog-offset: 3rem;
+
+.alternating-direction (@i) when (mod(@i, 2) = 0) {
+    .animation-direction(reverse);
+}
+.leftness (@i) when ( mod( floor(@i / @flip-at), 2) = 0) {
+    left: mod(@i, @flip-at) * @cog-offset + @cog-base-offset;
+}
+.leftness (@i) when ( mod( floor(@i / @flip-at), 2) = 1) {
+    left: (@flip-at - mod(@i, @flip-at)) * @cog-offset + @cog-base-offset;
+}
+
+.cog {
+    position: absolute;
+    width: @cog-size;
+    height: @cog-size;
+
+    .animation(anim 10s linear infinite);
+
+
+    .cog-loop (@i) when (@i < 30) {
+        &:nth-child(@{i}) {
+
+            top: @cog-offset * @i;
+            .leftness(@i - 1);
+
+            .animation-duration(@max-rotation * pow(2, @i - 1));
+            .alternating-direction(@i);
+
+        }
+        .cog-loop(@i + 1);
+    }
+    .cog-loop(1);
+
+}
+
+
+
+@media (max-width: 1024px) {
+    html {
+        font-size: 18px;
+    }
+}
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+@media (max-width: 600px) {
+    html {
+        font-size: 10px;
+    }
+}
+@media (max-width: 480px) {
+    html {
+        font-size: 8px;
+    }
+}
+
