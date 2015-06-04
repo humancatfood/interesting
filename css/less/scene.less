@@ -4,23 +4,7 @@
 html, body {
     height: 100%;
     background-color: darkgray;
-}
-
-
-main {
-    position: relative;
-    width: 36rem;
-    height: 70rem;
-
-    margin: 0 auto;
-    background-color: lightgray;
-
-    .cogs {
-        width: 0;
-        height: 100%;
-        margin: 0 auto;
-        position: relative;
-    }
+    font-size: 20px;
 }
 
 
@@ -37,65 +21,116 @@ main {
         @keyframes anim { .anim(); }
 
 
+@cog-size: 10rem;
+@num-cogs: 26;
+@cog-ratio: 1 / 5;
 
-@cog-size: 6rem;
-@max-rotation: 1s;
+@max-rotation: 10s;
 @flip-at: 4;
-@cog-base-offset: -3rem * (@flip-at / 2);
-@cog-offset: 3rem;
 
-.alternating-direction (@i) when (mod(@i, 2) = 0) {
-    .animation-direction(reverse);
-}
-.leftness (@i) when ( mod( floor(@i / @flip-at), 2) = 0) {
-    left: mod(@i, @flip-at) * @cog-offset + @cog-base-offset;
-}
-.leftness (@i) when ( mod( floor(@i / @flip-at), 2) = 1) {
-    left: (@flip-at - mod(@i, @flip-at)) * @cog-offset + @cog-base-offset;
-}
 
-.cog {
+@cog-radius-offset: (@cog-size / 2 + @cog-size * @cog-ratio / 2);
+@cog-axis-offset: sqrt(@cog-radius-offset * @cog-radius-offset / 2);
+
+@cog-base-offset: -(@cog-size + @cog-axis-offset * @flip-at) / 2;
+
+.vertically-centered()
+{
     position: absolute;
-    width: @cog-size;
-    height: @cog-size;
+    top: 50%;
+    .transform(translateY(-50%));
+}
+.cog-leftness (@i) when ( mod( floor(@i / @flip-at), 2) = 0) {
+    left: @cog-base-offset + mod(@i, @flip-at) * @cog-axis-offset;
+}
+.cog-leftness (@i) when ( mod( floor(@i / @flip-at), 2) = 1) {
+    left: @cog-base-offset + (@flip-at - mod(@i, @flip-at)) * @cog-axis-offset;
+}
 
-    .animation(anim 10s linear infinite);
+    margin-right: @margin-right;
+
+    &:after {
+        content: '\2192';
+        .vertically-centered();
+        right: @cog-size * -0.2;
+    }
+}
+.p-right (@margin-left) {
+
+    margin-left: @margin-left;
+
+    &:before {
+        content: '\2190';
+        .vertically-centered();
+        left: @cog-size * -0.2;
+    }
+}
+
+main {
+    position: relative;
+    width: 44rem;
+
+    margin: 0 auto;
+    background-color: lightgray;
 
 
-    .cog-loop (@i) when (@i < 30) {
-        &:nth-child(@{i}) {
-
-            top: @cog-offset * @i;
-            .leftness(@i - 1);
-
-            .animation-duration(@max-rotation * pow(2, @i - 1));
-            .alternating-direction(@i);
+    .cogs {
+        width: 0;
+        height: @cog-size + @cog-axis-offset * (@num-cogs - 1);
+        min-height: 100%;
+        margin: 0 auto;
+        position: relative;
 
         }
-        .cog-loop(@i + 1);
+
     }
-    .cog-loop(1);
+
+    .cog {
+        position: absolute;
+        width: @cog-size;
+        height: @cog-size;
+
+        &:nth-of-type(2n)
+        {
+            .animation-direction(reverse);
+        }
+
+        .animation(anim 10s linear infinite);
+
+        .cog-loop (@i) when (@i =< @num-cogs) {
+            &:nth-of-type(@{i}) {
+                top: @cog-axis-offset * (@i - 1);
+                .cog-leftness(@i - 1);
+                .animation-duration(@max-rotation * pow(1 / @cog-ratio, @i - 1));
+            }
+            .cog-loop(@i + 1);
+        }
+        .cog-loop(1);
+    }
 
 }
-
-
 
 @media (max-width: 1024px) {
     html {
-        font-size: 18px;
+        font-size: 20px;
     }
 }
 @media (max-width: 768px) {
     html {
+        font-size: 17px;
+    }
+}
+@media (max-width: 640px) {
+    html {
         font-size: 14px;
     }
 }
-@media (max-width: 600px) {
+@media (max-width: 480px) {
     html {
-        font-size: 10px;
+        font-size: 11px;
     }
 }
-@media (max-width: 480px) {
+@media (max-width: 320px) {
     html {
         font-size: 8px;
     }
