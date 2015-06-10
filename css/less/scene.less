@@ -106,7 +106,7 @@ main {
 
         p {
             position: absolute;
-            width: 20em;
+            width: 17rem;
             margin: 0;
             padding: 0;
 
@@ -123,8 +123,8 @@ main {
                 .p-right(0);
             }
             &:nth-of-type(2) {
-                top: @cog-size * 0.6;
-                .p-right(@cog-size * 0.4);
+                top: @cog-size * 0.75;
+                .p-right(@cog-size * 0.45);
             }
             &:nth-of-type(3) {
                 top: @cog-size * 2.2;
@@ -140,13 +140,13 @@ main {
                 }
             }
             &:nth-of-type(5) {
-                top: @cog-size * 5.6;
+                top: @cog-size * 5.6;           // TODO: factor top and width attributes into p-left & p-right helpers
                 .p-left(@cog-size * 0.4);
 
                 img {
                     left: 0;
                     opacity: 0.3;
-                    bottom: 3rem;
+                    bottom: 3rem;               // TODO: have a base-size that @cog-size inherits from
                     height: 14rem;
                 }
             }
@@ -188,7 +188,7 @@ main {
             }
             &:nth-of-type(9) {
                 top: @cog-size * 9.8;
-                width: @cog-size * 1.8;
+                width: @cog-size * 1.1;
                 .p-right(@cog-size * 1.0);
 
                 img {
