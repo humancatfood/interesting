@@ -1,10 +1,22 @@
 @import "reusables";
 @import "maths";
 
+* {
+    box-sizing: border-box;
+}
 
-html, body {
+html {
     height: 100%;
     background-color: darkgray;
+}
+
+a, a:visited {
+    color: #00c;
+    text-decoration: underline;
+
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 
@@ -30,6 +42,9 @@ html, body {
 @cog-axis-offset: sqrt(@cog-radius-offset * @cog-radius-offset / 2);
 
 @cog-base-offset: -(@cog-size + @cog-axis-offset * @flip-at) / 2;
+@cogs-vertical-padding: @cog-size / 4;
+@cogs-horizontal-padding: @cog-size;
+@body-width: @cog-size + @cog-axis-offset * @flip-at + @cogs-horizontal-padding * 2;
 
 
 .vertically-centered()
@@ -75,10 +90,26 @@ html, body {
     }
 }
 
+
+body {
+    height: 100%;
+    position: relative;
+    width: @body-width;
+    margin: 0 auto;
+    background-color: lightgray;
+}
+
+header {
+    h1 {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
 main {
     position: relative;
-    width: 44rem;
-    height: 100%;
 
     margin: 0 auto;
     background-color: lightgray;
@@ -87,9 +118,16 @@ main {
         display: inline-block;
 
         margin: 0;
-        padding: 2rem;
+        padding: 0.5rem 2rem;
 
         font: 85% 'Montserrat', sans-serif;
+
+        &:first-of-type {
+            padding-top: 2rem;
+        }
+        &:last-of-type {
+            padding-bottom: 2rem;
+        }
 
         img {
             position: absolute;
@@ -101,8 +139,10 @@ main {
 
     .cogs {
         width: 0;
-        margin: 0 auto;
+        margin: @cogs-vertical-padding auto;
         position: relative;
+        height: @cog-size + @cog-axis-offset * (@num-cogs - 1) + @cogs-vertical-padding;
+        min-height: 100%;
 
         p {
             position: absolute;
@@ -124,6 +164,7 @@ main {
             }
             &:nth-of-type(2) {
                 top: @cog-size * 0.75;
+                width: 16rem;
                 .p-right(@cog-size * 0.45);
             }
             &:nth-of-type(3) {
@@ -137,6 +178,7 @@ main {
                 img {
                     right: 0;
                     opacity: 0.2;
+                    height: 12rem;
                 }
             }
             &:nth-of-type(5) {
@@ -238,26 +280,32 @@ code {
 }
 
 html {
-    font-size: 20px;
+    font-size: 22px;
+    .transition(font-size 0.5s cubic-bezier(0.4, -0.26, 0.57, 1.17));
 }
-@media (max-width: 930px) {
+@media (max-width: 1200px) {
     html {
-        font-size: 18px;
+        font-size: 20px;
     }
 }
-@media (max-width: 830px) {
+@media (max-width: 960px) {
     html {
         font-size: 14px;
     }
 }
-@media (max-width: 660px) {
+@media (max-width: 680px) {
     html {
         font-size: 11px;
     }
 }
-@media (max-width: 520px) {
+@media (max-width: 540px) {
     html {
-        font-size: 8px;
+        font-size: 9px;
+    }
+}
+@media (max-width: 460px) {
+    html {
+        font-size: 7px;
     }
 }
 
