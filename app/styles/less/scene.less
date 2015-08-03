@@ -111,7 +111,7 @@ main {
         margin: 0;
         padding: 0.5rem 2rem;
 
-        font: 85% 'Montserrat', sans-serif;
+        font-family: Montserrat, sans-serif;
 
         &:first-of-type {
             padding-top: 2rem;
@@ -156,15 +156,15 @@ main {
             &:nth-of-type(2) {
                 top: @cog-size * 0.75;
                 width: 16rem;
-                .p-right(@cog-size * 0.45);
+                .p-right(@cog-size * 0.6);
             }
             &:nth-of-type(3) {
                 top: @cog-size * 2.2;
-                .p-left(@cog-size * 0.4);
+                .p-left(@cog-size * 0.5);
             }
             &:nth-of-type(4) {
                 top: @cog-size * 3.9;
-                .p-right(@cog-size * 0.4);
+                .p-right(@cog-size * 0.5);
 
                 img {
                     right: 0;
@@ -174,7 +174,8 @@ main {
             }
             &:nth-of-type(5) {
                 top: @cog-size * 5.6;           // TODO: factor top and width attributes into p-left & p-right helpers
-                .p-left(@cog-size * 0.4);
+                width: @cog-size * 1.6;
+                .p-left(@cog-size * 0.5);
 
                 img {
                     left: 0;
@@ -186,7 +187,7 @@ main {
             &:nth-of-type(6) {
                 top: @cog-size * 6.2;
                 width: @cog-size * 1.3;
-                .p-left(@cog-size * 0.8);
+                .p-left(@cog-size * 0.9);
 
                 img {
                     right: 26rem;
@@ -197,8 +198,8 @@ main {
             }
             &:nth-of-type(7) {
                 top: @cog-size * 7.3;
-                width: @cog-size * 1.8;
-                .p-right(@cog-size * 0.3);
+                width: @cog-size * 1.6;
+                .p-right(@cog-size * 0.6);
 
                 img {
                     right: 0;
@@ -234,7 +235,7 @@ main {
             &:nth-of-type(10) {
                 top: @cog-size * 10.9;
                 width: @cog-size * 2.0;
-                .p-right(0);
+                .p-right(@cog-size * 0.2);
             }
         }
 
